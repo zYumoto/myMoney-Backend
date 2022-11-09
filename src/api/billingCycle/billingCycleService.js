@@ -1,9 +1,12 @@
-
 const { values } = require("lodash");
 const BillingCycle = require("./billingCycle");
+const errorHandler = require("../common/errorHandler");
+
 
 BillingCycle.methods(["get", "post", "put", "delete"]);
 BillingCycle.updateOptions({ new: true, runValidators: true });
+BillingCycle.after("post", errorHandler).after("put", errorHandler);
+
 
 BillingCycle.route("get", (req, res, next) => {
     BillingCycle.find({}, (err, docs) => {
@@ -54,5 +57,5 @@ BillingCycle.route("get", (req, res, next) => {
       }
     );
   });
-  
+
 module.exports = BillingCycle;
